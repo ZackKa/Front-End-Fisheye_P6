@@ -1,37 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Fisheye - photographe </title>
   </head>
   <body>
     <header>
-      <img src="assets/images/logo.png" class="logo" />
+      <a class="pageAccueil" href="index.html">
+        <img src="assets/images/logo.png" class="logo" alt="Fisheye Home page"/>
+      </a>
     </header>
     <main id="main">
       <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
       </div>
+      <div class="main_content_filter">
+        <h3>Trier par</h3>
+        <div class="filter_section" >
+            <div class="dropdown">
+                <button class="btn_drop" id="order-by" type="button" role="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="filter-options" aria-label="Order by">
+                    <span id="current_filter">Titre</span>
+                    <span class="fa-solid fa-chevron-up" aria-hidden="true"></span>
+                </button>
+
+                <ul class="dropdown_content" id="filter-options" aria-hidden="true" role=listbox>
+                    <li role="option">
+                        <button type="button" tabindex="-1" aria-label="Sort by title">Titre</button>
+                    </li>
+                    <li role="option">
+                        <button type="button" tabindex="-1" aria-label="Sort by popularity">Popularité</button>
+                    </li>
+                    <li role="option">
+                        <button type="button" tabindex="-1" aria-label="Sort by date">Date</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     </main>
-    <div id="contact_modal">
-			<div class="modal">
-				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+    <div id="contact_modal" role="dialog" aria-modal="true" aria-hidden="true">
+			<div class="modal" >
+				<header class="modal-header">
+          <h2 class="modal-header-h2">Contactez-moi <br></h2>
+          <button class="modal_close" type="button" aria-label="Close contact form">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
         </header>
 				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
-					</div>
-          <button class="contact_button">Envoyer</button>
+          <div class="formData">
+            <label id="firstname-label" for="firstname">Prénom <span aria-hidden="true">*</span></label>
+            <input class="formField" aria-labelledby="firstname-label" type="text" id="firstname" name="firstname" minlength="2" required/>
+        </div>
+        <div class="formData">
+            <label id="lastname-label" for="lastname">Nom <span aria-hidden="true">*</span></label>
+            <input class="formField" aria-labelledby="lastname-label" type="text" id="lastname" name="lastname" minlength="2" required/>
+        </div>
+        <div class="formData">
+            <label id="email-label" for="email">Email <span aria-hidden="true">*</span></label>
+            <input class="formField" aria-labelledby="email-label" type="email" id="email" name="email" required/>
+        </div>
+        <div class="formData">
+            <label id="message-label" for="message">Votre message <span aria-hidden="true">*</span></label>
+            <textarea class="formField" aria-labelledby="message-label" id="message" name="message" minlength="2" maxlength="300" required></textarea>
+        </div>
+          <button class="contact_button" aria-label="Send form">Envoyer</button>
 				</form>
 			</div>
 		</div>
-    <script src="/scripts/pages/photographer.js"></script>
-    <script src="/scripts/utils/contactForm.js"></script>
+    <script type="module" src="/scripts/pages/photographer.js"></script>
+
   </body>
 </html>
