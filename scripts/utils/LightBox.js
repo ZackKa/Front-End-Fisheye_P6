@@ -30,24 +30,13 @@ export class LightBox {
         // Navigation aux touches clavier
         document.addEventListener("keydown", (event) => {
             const lightbox = document.querySelector(".lightbox");
+            // const figure = document.getElementById("mediaLightbox");
+            // const mediaElement = figure.querySelector("img, video");
             if (lightbox.style.display === "flex") {
                 if (event.key === "ArrowRight") {
                     this.showNext()
                 } else if (event.key === "ArrowLeft") {
                     this.showPrevious()
-                }
-            }
-        });
-
-        // lecture video avec touche espace
-        document.addEventListener("keydown", (event) => {
-            const figure = document.getElementById("mediaLightbox");
-            const mediaElement = figure.querySelector("img, video");
-            const lightbox = document.querySelector(".lightbox");
-            if (lightbox.style.display === "flex") {
-                if (event.key === " " && mediaElement.tagName === "VIDEO") {
-                    event.preventDefault(); // Empêcher le comportement par défaut de la touche "Espace"
-                    this.videoPlay() // Appeler une fonction pour démarrer ou mettre en pause la vidéo
                 }
             }
         });
@@ -60,7 +49,7 @@ export class LightBox {
 
     videoPlay() {
         const figure = document.getElementById("mediaLightbox");
-        const mediaElement = figure.querySelector("img, video");
+        const mediaElement = figure.querySelector("video");
         if (mediaElement.paused) {
             mediaElement.play(); // Démarrer la lecture de la vidéo si elle est en pause
         } else {

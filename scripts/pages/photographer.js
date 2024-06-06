@@ -96,7 +96,7 @@ class App {
         sectionMedia.innerHTML = ""; // Effacer le contenu actuel
         this.mediaModelArray.forEach((mediaModel) => {
             let mediaTemplate = new MediaTemplate(mediaModel);
-            mediaTemplate.render(sectionMedia)
+            sectionMedia.appendChild(mediaTemplate.render())
 
         });
 

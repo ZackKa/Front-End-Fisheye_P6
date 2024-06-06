@@ -47,39 +47,6 @@ export class Filter {
         }
         this.photographerPage.renderMedias();
 
-
-
-
-
-        
-        // console.log("ediaModelArray Popularité : ", this.mediaModelArray);
-
-        // // Vérifier si le texte de current_filter est "Date"
-        // if (current_filter.textContent.trim() === "Date") {
-        //     // Trier this.mediaModelArray par dates croissantes
-        //     this.mediaModelArray.sort((a, b) => new Date(a.date) - new Date(b.date));
-        // } else {
-        //     console.log("La condition Date est fausse");
-        // }
-        // // console.log("mediaModelArray Date : ", this.mediaModelArray);
-
-        // // Vérifier si le texte de current_filter est "Titre"
-        // if (current_filter.textContent.trim() === "Titre") {
-        //     // Trier this.mediaModelArray par titre dans l'ordre alphabétique
-        //     this.mediaModelArray.sort((a, b) => a.title.localeCompare(b.title));
-        //     // this.mediaModelArray.sort(function (a, b) {
-        //     //     return a.title.localeCompare(b.title);
-        //     //   });
-        // }else{
-        //     console.log("La condition Titre est fausse")
-        // }
-
-
-        // console.log("mediaModelArray titre : ", this.mediaModelArray);
-
-
-
-
     }
 
     openCloseFilterMenu() {

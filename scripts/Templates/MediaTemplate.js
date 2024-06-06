@@ -6,7 +6,7 @@ export class MediaTemplate {
     }
 
 
-    render(HtmlParent) {
+    render() {
 
         //Créer 1 card pour 1 photographe
         const article = document.createElement( 'article' );
@@ -54,7 +54,7 @@ export class MediaTemplate {
         icon.setAttribute("title","add or remove a like")
         heart.appendChild(icon)
 
-        HtmlParent.appendChild(article)
+        return(article)
     
     }
     
