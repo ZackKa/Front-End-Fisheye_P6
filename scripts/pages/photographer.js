@@ -89,15 +89,14 @@ class App {
             sectionMedia = document.getElementById('sectionMedia');
         } else {
             sectionMedia = document.createElement('section');
-            // sectionMedia.innerHTML = "";
             sectionMedia.id = 'sectionMedia';
             sectionMedia.classList.add("sectionPhotographer")
         }
-        
+
         sectionMedia.innerHTML = ""; // Effacer le contenu actuel
         this.mediaModelArray.forEach((mediaModel) => {
             let mediaTemplate = new MediaTemplate(mediaModel);
-            sectionMedia.appendChild(mediaTemplate.render());
+            mediaTemplate.render(sectionMedia)
 
         });
 
