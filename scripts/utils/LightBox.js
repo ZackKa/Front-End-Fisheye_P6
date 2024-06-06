@@ -32,10 +32,8 @@ export class LightBox {
             const lightbox = document.querySelector(".lightbox");
             if (lightbox.style.display === "flex") {
                 if (event.key === "ArrowRight") {
-                    console.log("ok next")
                     this.showNext()
                 } else if (event.key === "ArrowLeft") {
-                    console.log("ok prev")
                     this.showPrevious()
                 }
             }
@@ -196,7 +194,6 @@ export class LightBox {
             const lightbox = document.querySelector(".lightbox");
             if (lightbox.style.display === "flex") {
                 if (event.key === "Escape") {
-                    console.log("touche")
                     this.eventCloseLightbox();
 
                 }

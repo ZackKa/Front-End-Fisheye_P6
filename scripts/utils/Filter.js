@@ -2,7 +2,6 @@ export class Filter {
     constructor(photographerPage) {
         // Initialisation
         this.photographerPage = photographerPage
-        // console.log("Contenu de mediaModelArray avant le filtrage : ", this.photographerPage.renderMedias);
 
     }
 
@@ -50,23 +49,15 @@ export class Filter {
 
     optionsFilter(){
         const current_filter = document.getElementById("current_filter")
-        // console.log("Contenu de current_filter.textContent : ", current_filter.textContent);
         // Vérifier si le texte de current_filter est "Popularité" avec trim qui supprime les espaces blancs
         if (current_filter.textContent.trim() === "Popularité") {
             this.mediaModelArray = this.photographerPage.mediaModelArray.sort((a, b) => b.likes - a.likes);
         } else if (current_filter.textContent.trim() === "Date"){
             this.mediaModelArray = this.photographerPage.mediaModelArray.sort((a, b) => new Date(a.date) - new Date(b.date));
-            // console.log("La condition Popularité est fausse");
         }else if(current_filter.textContent.trim() === "Titre"){
             this.mediaModelArray =this.photographerPage.mediaModelArray.sort((a, b) => a.title.localeCompare(b.title));
         }
-        // test //
-        // console.log("consol filter",this.photographerPage.renderMedias())
-        // let sectionMedia = document.querySelector('section');
-        // sectionMedia.innerHTML = "";
         this.photographerPage.renderMedias();
-        // test //
-        // this.photographerPage.renderMedias();
 
 
 

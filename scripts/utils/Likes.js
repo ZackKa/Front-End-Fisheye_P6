@@ -45,7 +45,6 @@ export class Likes {
             // Je remplace l'ancienne valeur de this.filteredDataMedia[index].likes par la nouvelle
             this.filteredDataMedia[index].likes = parseInt(nbLike.textContent);
         }
-        console.log("mediaFilter", this.filteredDataMedia)
 
     }
 

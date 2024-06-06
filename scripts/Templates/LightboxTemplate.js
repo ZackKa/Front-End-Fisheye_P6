@@ -56,8 +56,6 @@ export class LightboxTemplate {
         lightboxTitre.setAttribute("aria-label","intitulé du média");
         figcaption.appendChild(lightboxTitre)
 
-        // return (modalLigthbox);
-
         HtmlParent.appendChild(modalLigthbox);
     }
 }

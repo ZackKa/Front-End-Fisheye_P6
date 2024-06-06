@@ -17,10 +17,8 @@ export class PhotographerApi extends Api {
         //La méthode getOne utilise getDatas pour récupérer toutes les données des photographes.
         let datas = await this.getDatas();
         datas = datas.photographers;
-        // console.log("datas", datas)
         //getOne filtre les données pour trouver le photographe avec l'ID spécifié et le retourne.
         const filteredData = datas.filter(data => data.id === parseInt(id));
-        // console.log("filteredData", filteredData)
         return filteredData[0];
     }
 }

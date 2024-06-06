@@ -25,9 +25,6 @@ class App {
         this.filteredData = await this.photographerApi.getOne(this.getId());
         // this.filteredDataMediaJson renvoie les medias correspondants à l'Id passé dans l'url de la page
         this.filteredDatasMediaJson = await this.MediaApi.getAllForOnePhotographer(this.getId());
-        // console.log("filteredData", this.filteredData);
-        // console.log("filteredDataMedia", this.filteredDatasMediaJson);
-        // this.datasMedia renvoie tous les medias
         // On appelle la méthode render
         this.render();
     }
@@ -45,7 +42,6 @@ class App {
 
         // On crée une instance de PhotographerModel à partir des données du photographe (this.filteredData)
         this.photographerModel = new PhotographerModel(this.filteredData);
-        console.log("photographe", this.photographerModel)
         //Et utilise PhotographerTemplate pour générer le contenu grâce à photographerModel
         let photographerTemplate = new PhotographerTemplate(this.photographerModel);
         html.appendChild(photographerTemplate.render());
@@ -83,14 +79,12 @@ class App {
             let MediaModel = new MediaFactory(data, this.photographerModel).create();
             this.mediaModelArray.push(MediaModel)
         })
-        console.log("create", this.mediaModelArray)
     }
 
     renderMedias() {
         // On filtre les données des médias en fonction de l'ID du photographe
 
         let sectionMedia = null;
-        console.log(document.getElementById('sectionMedia'))
         if (document.getElementById('sectionMedia') != null) {
             sectionMedia = document.getElementById('sectionMedia');
         } else {
@@ -135,7 +129,6 @@ class App {
         //     });
 
         // })
-        console.log("render", this.mediaModelArray)
         this.main.appendChild(sectionMedia);
         
     }

@@ -84,7 +84,6 @@ export class ContactForm {
             const modal = document.getElementById("contact_modal");
             if (modal.style.display === "flex") {
                 if (event.key === "Escape") {
-                    console.log("touche")
                     this.eventCloseModal();
 
                 }
@@ -217,7 +216,6 @@ export class ContactForm {
         span.setAttribute("aria-label", errorMessages[input.name])
         span.setAttribute("aria-hidden", "false")
         span.setAttribute("aria-invalid", "true")
-        console.log("span", span)
     }
 
     hideErrorMessage(input) {

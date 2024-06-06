@@ -11,7 +11,6 @@ class App {
     //La méthode init() initialise les données du photographe en appelant les méthodes appropriées
     async init() {
         this.datas=await this.photographerApi.getAll();
-        console.log("index", this.datas);
         this.render();
         this.renderPhotographer();
     }
@@ -66,7 +65,6 @@ class App {
 
     redirectionRender(event){
         let idArticle = event.currentTarget.getAttribute("data-id");
-        console.log("ID de l'élément cliqué :", idArticle);
         window.location.href = "photographer.html?id=" + idArticle;
     }
 
