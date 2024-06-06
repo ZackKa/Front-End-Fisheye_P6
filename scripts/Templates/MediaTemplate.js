@@ -29,7 +29,7 @@ export class MediaTemplate {
         figure.appendChild(contenueMedia);
 
         const h2 = document.createElement( 'h2' );
-        h2.textContent = this.MediaModel.title + " " + this.MediaModel.date;
+        h2.textContent = this.MediaModel.title;
         contenueMedia.appendChild(h2);
 
         const contenuelike = document.createElement('div');
