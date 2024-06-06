@@ -12,19 +12,11 @@ export class Filter {
     }
 
     setupDropdown() {
-        // let btnDrop = document.querySelector(".btn_drop");
 
         let dropdownItems = document.querySelectorAll(".dropdown_content li");
-        // const current_filter = document.getElementById("current_filter")
-        // // Par défaut j'ordonne le tableau par titre
-        // if (current_filter.textContent === "Titre") {
-        //     // Trier this.mediaModelArray par titre dans l'ordre alphabétique
-        //     this.mediaModelArray.sort((a, b) => a.title.localeCompare(b.title));
-        // }
 
         dropdownItems.forEach((item, index) => {
             if (index === 0) {
-                // item.classList.add("hidden");// Masquer le premier <li> au chargement
                 item.style.display = "none";
             }
 
@@ -33,15 +25,11 @@ export class Filter {
                 // Réinitialiser la visibilité de tous les éléments <li>
                 dropdownItems.forEach(li => {
                     li.style.display = "block";
-                    li.classList.remove("hidden");
                 });
                 let texteBtn = document.getElementById("current_filter")
                 texteBtn.textContent = item.textContent;
                 item.style.display = "none";
-                // test //
-                // let sectionMedia = document.querySelector('section');
-                // sectionMedia.innerHTML = "";
-                // test //
+                
                 this.optionsFilter();
             });
         });

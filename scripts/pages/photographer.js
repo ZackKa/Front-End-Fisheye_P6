@@ -93,7 +93,7 @@ class App {
             sectionMedia.id = 'sectionMedia';
             sectionMedia.classList.add("sectionPhotographer")
         }
-                                        // test //
+        
         sectionMedia.innerHTML = ""; // Effacer le contenu actuel
         this.mediaModelArray.forEach((mediaModel) => {
             let mediaTemplate = new MediaTemplate(mediaModel);
@@ -106,29 +106,7 @@ class App {
 
         const like = new Likes(this.mediaModelArray);
         like.render()
-                                        // test //
 
-        // On fait une boucle des medias
-        // this.mediaModelArray.forEach((data) => {
-        //     // console.log("Contenu de mediaModelArray pho.js : ", data);
-        //     //On utilise MediaTemplate pour générer le contenu
-        //     let mediaTemplate = new MediaTemplate(data);
-        //     // On appelle la méthode render de mediaTemplate et on la lie a sectionMedia
-        //     sectionMedia.appendChild(mediaTemplate.render());
-
-        //     const bt = document.getElementById("current_filter")
-        //     console.log("current bt", bt.textContent)
-
-        //     // sectionMedia.innerHTML = ""; // Effacer le contenu actuel
-
-
-        //     this.mediaModelArray.forEach((mediaModel) => {
-        //         let mediaTemplate = new MediaTemplate(mediaModel);
-        //         sectionMedia.appendChild(mediaTemplate.render());
-
-        //     });
-
-        // })
         this.main.appendChild(sectionMedia);
         
     }

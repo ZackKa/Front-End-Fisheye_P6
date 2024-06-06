@@ -71,12 +71,6 @@ export class ContactForm {
         modalBtn.addEventListener("click", () => {
             this.eventCloseModal()
         });
-        // modalBtn.addEventListener("keypress", (event) => {
-        //     if (event.key === "Enter" && document.activeElement === modalBtn) {
-        //         event.preventDefault();
-        //         this.eventCloseModal()
-        //     }
-        // });
     }
 
     esc() {
