@@ -5,13 +5,12 @@ export class LightBox {
     }
 
     render() {
-
-        const articleClick = document.querySelectorAll(".artcile-photographer figure a")
+        const articleClick = document.querySelectorAll(".article-photographer figure a")
         articleClick.forEach((data, index) => {
             data.addEventListener("click", (event) => {
                 this.currentIndex = index; // je récupère l'index du média ouvert
                 this.mediaContent(event)
-                this.openLightbox();           
+                this.openLightbox();
 
             });
             data.addEventListener("keydown", (event) => {
@@ -54,6 +53,10 @@ export class LightBox {
                 }
             }
         });
+        this.closeLightboxBtn()
+        this.trapFocusIn()
+        this.esc()
+        
 
     }
 
@@ -67,33 +70,38 @@ export class LightBox {
         }
     }
 
-    openLightbox(){
+    openLightbox() {
         const open = document.querySelector(".lightbox")
         open.style.display = "flex"
-        open.setAttribute("aria-hidden","false");
-
-
+        open.setAttribute("aria-hidden", "false");
+        open.setAttribute("tabindex", "0")
+        open.focus()
     }
 
-    closeLightboxBtn(){
+    closeLightboxBtn() {
         const close = document.querySelector('.closeLightbox')
         close.addEventListener("click", () => {
-            const open = document.querySelector(".lightbox")
-            open.style.display = "none"
-            open.setAttribute("aria-hidden","true");
-            
-            const figure = document.getElementById("mediaLightbox");
-            const mediaElement = figure.querySelector("img, video");
-
-            if (mediaElement) {
-                mediaElement.remove(); // supprime l'image ou la vidéo de la balise figure
-            }
-            const lightboxTitre = document.getElementById("titreContenue");
-            lightboxTitre.textContent = ''; // vide le contenue du texte
+            this.eventCloseLightbox();
         });
     }
 
-    mediaContent(event){
+    eventCloseLightbox() {
+        const open = document.querySelector(".lightbox")
+        open.style.display = "none"
+        open.setAttribute("aria-hidden", "true");
+        open.setAttribute("tabindex", "-1")
+
+        const figure = document.getElementById("mediaLightbox");
+        const mediaElement = figure.querySelector("img, video");
+
+        if (mediaElement) {
+            mediaElement.remove(); // supprime l'image ou la vidéo de la balise figure
+        }
+        const lightboxTitre = document.getElementById("titreContenue");
+        lightboxTitre.textContent = ''; // vide le contenue du texte
+    }
+
+    mediaContent(event) {
 
         // On parcourt les parents jusqu'à trouver un noeud correspondant
         let articleElement = event.target.closest("article");
@@ -108,9 +116,11 @@ export class LightBox {
 
                 let mediaAffiche = document.getElementById("mediaLightbox")
                 mediaAffiche.appendChild(mediaRender);
+                const mediaElement = mediaAffiche.querySelector("img, video");
+                mediaElement.setAttribute("aria-label", "lilac breasted roller")
 
                 let lightboxTitre = document.getElementById("titreContenue")
-                lightboxTitre.textContent= `${this.medias[i].title}`;
+                lightboxTitre.textContent = `${this.medias[i].title}`;
 
                 break; // Sortir de la boucle une fois que l'ID est trouvé
             }
@@ -122,20 +132,20 @@ export class LightBox {
         this.currentIndex = (this.currentIndex - 1 + this.medias.length) % this.medias.length;
         this.updateMediaDisplay();
     }
-    
+
     showNext() {
         this.currentIndex = (this.currentIndex + 1) % this.medias.length;
         this.updateMediaDisplay();
     }
-    
+
     updateMediaDisplay() {
         let mediaRender = this.medias[this.currentIndex].getMedia();
-        
+
         // On met l'attribut controls dans le cas où le média est une vidéo
         if (mediaRender.tagName === 'VIDEO') {
             mediaRender.setAttribute('controls', 'true');
         }
-    
+
         const figure = document.getElementById("mediaLightbox");
         const mediaElement = figure.querySelector("img, video");
 
@@ -144,9 +154,53 @@ export class LightBox {
             mediaElement.remove(); // Cela supprime uniquement l'image ou la vidéo de la balise figure
         }
         figure.appendChild(mediaRender);
-    
+
         let lightboxTitre = document.getElementById("titreContenue");
         lightboxTitre.textContent = this.medias[this.currentIndex].title;
     }
 
+    trapFocusIn() {
+        const modal = document.querySelector(".lightbox");
+        modal.addEventListener("keydown", (event) => {
+            let isTabPressed = event.key === "Tab";
+
+            if (!isTabPressed) {
+                return;
+            }
+
+            let focusableElement = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            let firstFocusableElement = focusableElement[0];
+            let lastFocusableElement = focusableElement[focusableElement.length - 1];
+
+            if (event.shiftKey) {
+                // si shift est pressed pour shift + tab
+                if (document.activeElement === firstFocusableElement) {
+                    // revoyer le focus sur le dernier élément focus
+                    lastFocusableElement.focus();
+                    event.preventDefault();
+                }
+            } else {
+                // si tab est pressed
+                if (document.activeElement === lastFocusableElement) {
+                    // revoyer le focus sur le premier élément
+                    firstFocusableElement.focus();
+                    event.preventDefault();
+                }
+            }
+
+        });
+    }
+
+    esc() {
+        document.addEventListener("keydown", (event) => {
+            const lightbox = document.querySelector(".lightbox");
+            if (lightbox.style.display === "flex") {
+                if (event.key === "Escape") {
+                    console.log("touche")
+                    this.eventCloseLightbox();
+
+                }
+            }
+        });
+    }
 }

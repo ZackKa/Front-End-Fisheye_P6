@@ -7,8 +7,10 @@ export class AsideTemplate {
     }
 
     // On crée les éléments dans le DOM
-    render() {
+    render(HtmlParent) {
         const aside = document.createElement('aside')
+        aside.setAttribute("aria-label", "total de like et tarif")
+
 
         const photographerLikes = document.createElement('div');
         photographerLikes.classList.add('photographer_likes');
@@ -18,6 +20,7 @@ export class AsideTemplate {
         const likesCount = document.createElement('p');
         likesCount.id="allLikes"
         likesCount.classList.add('photographer_likes_count');
+        likesCount.setAttribute("aria-label", "total like")
         photographerLikes.appendChild(likesCount);
 
         const countHeart = document.createElement('p');
@@ -31,6 +34,6 @@ export class AsideTemplate {
         priceElement.textContent = `${this.photographerModel.price} € / jour`;
         aside.appendChild(priceElement);
 
-        return (aside);
+        HtmlParent.appendChild(aside)
     }
 }

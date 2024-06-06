@@ -37,6 +37,14 @@ class App {
             buttons.forEach(button => {
                 button.remove();
             });
+
+            const articles = document.querySelectorAll("article");
+            // Parcourir chaque article et attacher le h2 au lien a
+            articles.forEach(article => {
+                const h2 = article.querySelector("h2");
+                const lien = article.querySelector("a");
+                lien.appendChild(h2);
+            });
         }
     }
     // On écoute le click sur les articles et on redirige vers la page avec l'id du photographe dans l'url

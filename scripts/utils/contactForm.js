@@ -5,20 +5,64 @@ export class ContactForm {
     }
 
     render() {
+        this.displayModal()
+        this.closeModal()
+        this.initEvents()
+        this.trapFocusIn()
+        this.esc()
+
         const nomForm = document.querySelector(".modal-header-h2")
         const nom = document.createElement("span")
         nom.textContent = `${this.filteredData.name}`
         nomForm.appendChild(nom)
 
-        this.initEvents()
+        const modalBtn = document.getElementById("contact_modal");
+        modalBtn.setAttribute("aria-label", "Contactez-moi " + `${this.filteredData.name}`);
+
+    }
+
+    trapFocusIn() {
+        const modal = document.getElementById("contact_modal");
+        modal.addEventListener("keydown", (event) => {
+
+            let isTabPressed = event.key === "Tab";
+
+            if (!isTabPressed) {
+                return;
+            }
+
+            let focusableElement = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            let firstFocusableElement = focusableElement[0];
+            let lastFocusableElement = focusableElement[focusableElement.length - 1];
+
+            if (event.shiftKey) {
+                // si shift est pressed pour shift + tab
+                if (document.activeElement === firstFocusableElement) {
+                    // revoyer le focus sur le dernier élément focus
+                    lastFocusableElement.focus();
+                    event.preventDefault();
+                }
+            } else {
+                // si tab est pressed
+                if (document.activeElement === lastFocusableElement) {
+                    // revoyer le focus sur le premier élément
+                    firstFocusableElement.focus();
+                    event.preventDefault();
+                }
+            }
+
+        });
     }
 
     displayModal() {
         const modalBtn = document.querySelector(".contact_button");
-        modalBtn.addEventListener("click", function () {
+        modalBtn.addEventListener("click", () => {
             const modal = document.getElementById("contact_modal");
             modal.style.display = "flex"
-            modal.setAttribute("aria-hidden","false");
+            modal.setAttribute("aria-hidden", "false");
+            modal.setAttribute("tabindex", "0")
+            modal.focus()
+
         });
     }
 
@@ -27,19 +71,32 @@ export class ContactForm {
         modalBtn.addEventListener("click", () => {
             this.eventCloseModal()
         });
-        modalBtn.addEventListener("keypress", (event) => {
-            console.log("holla")
-            if (event.key === "Enter" && document.activeElement === modalBtn) {
-                event.preventDefault();
-                this.eventCloseModal()
+        // modalBtn.addEventListener("keypress", (event) => {
+        //     if (event.key === "Enter" && document.activeElement === modalBtn) {
+        //         event.preventDefault();
+        //         this.eventCloseModal()
+        //     }
+        // });
+    }
+
+    esc() {
+        document.addEventListener("keydown", (event) => {
+            const modal = document.getElementById("contact_modal");
+            if (modal.style.display === "flex") {
+                if (event.key === "Escape") {
+                    console.log("touche")
+                    this.eventCloseModal();
+
+                }
             }
         });
     }
 
-    eventCloseModal(event){
+    eventCloseModal() {
         const modal = document.getElementById("contact_modal");
-            modal.style.display = "none"
-            modal.setAttribute("aria-hidden","true");
+        modal.style.display = "none"
+        modal.setAttribute("aria-hidden", "true");
+        modal.setAttribute("tabindex", "-1")
     }
 
     initEvents() {
@@ -154,6 +211,13 @@ export class ContactForm {
         // J'ajoute un attribut en fonction du champ du formulaire qui est en erreur
         formControl.setAttribute('data-error', errorMessages[input.name])
         formControl.setAttribute('data-error-visible', 'true')
+
+        const span = input.nextElementSibling;
+        span.textContent = errorMessages[input.name];
+        span.setAttribute("aria-label", errorMessages[input.name])
+        span.setAttribute("aria-hidden", "false")
+        span.setAttribute("aria-invalid", "true")
+        console.log("span", span)
     }
 
     hideErrorMessage(input) {
@@ -161,6 +225,12 @@ export class ContactForm {
         // Je retire l'attribut correspondant à l'erreur
         formControl.removeAttribute('data-error')
         formControl.removeAttribute('data-error-visible')
+
+        const span = input.nextElementSibling;
+        span.textContent = ""
+        span.removeAttribute("aria-label")
+        span.setAttribute("aria-hidden", "true")
+        span.removeAttribute("aria-invalid")
     }
 
 }

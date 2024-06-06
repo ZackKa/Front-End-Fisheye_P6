@@ -1,21 +1,27 @@
 export class Filter {
-    constructor(mediaModelArray) { // je dois travailler vec mediaModelArray pour filtrer les medias
+    constructor(photographerPage) {
         // Initialisation
-        this.mediaModelArray = mediaModelArray
-        // console.log("Contenu de mediaModelArray avant le filtrage : ", this.mediaModelArray);
+        this.photographerPage = photographerPage
+        // console.log("Contenu de mediaModelArray avant le filtrage : ", this.photographerPage.renderMedias);
 
+    }
+
+    render() {
+        this.optionsFilter();
+        this.openCloseFilterMenu();
+        this.setupDropdown();
     }
 
     setupDropdown() {
         // let btnDrop = document.querySelector(".btn_drop");
 
         let dropdownItems = document.querySelectorAll(".dropdown_content li");
-        const current_filter = document.getElementById("current_filter")
-        // Par défaut j'ordonne le tableau par titre
-        if (current_filter.textContent === "Titre") {
-            // Trier this.mediaModelArray par titre dans l'ordre alphabétique
-            this.mediaModelArray.sort((a, b) => a.title.localeCompare(b.title));
-        }
+        // const current_filter = document.getElementById("current_filter")
+        // // Par défaut j'ordonne le tableau par titre
+        // if (current_filter.textContent === "Titre") {
+        //     // Trier this.mediaModelArray par titre dans l'ordre alphabétique
+        //     this.mediaModelArray.sort((a, b) => a.title.localeCompare(b.title));
+        // }
 
         dropdownItems.forEach((item, index) => {
             if (index === 0) {
@@ -33,25 +39,40 @@ export class Filter {
                 let texteBtn = document.getElementById("current_filter")
                 texteBtn.textContent = item.textContent;
                 item.style.display = "none";
+                // test //
+                // let sectionMedia = document.querySelector('section');
+                // sectionMedia.innerHTML = "";
+                // test //
                 this.optionsFilter();
             });
         });
     }
 
     optionsFilter(){
-
         const current_filter = document.getElementById("current_filter")
         // console.log("Contenu de current_filter.textContent : ", current_filter.textContent);
-
         // Vérifier si le texte de current_filter est "Popularité" avec trim qui supprime les espaces blancs
         if (current_filter.textContent.trim() === "Popularité") {
-            this.mediaModelArray = this.mediaModelArray.sort((a, b) => b.likes - a.likes);
+            this.mediaModelArray = this.photographerPage.mediaModelArray.sort((a, b) => b.likes - a.likes);
         } else if (current_filter.textContent.trim() === "Date"){
-            this.mediaModelArray.sort((a, b) => new Date(a.date) - new Date(b.date));
+            this.mediaModelArray = this.photographerPage.mediaModelArray.sort((a, b) => new Date(a.date) - new Date(b.date));
             // console.log("La condition Popularité est fausse");
         }else if(current_filter.textContent.trim() === "Titre"){
-            this.mediaModelArray.sort((a, b) => a.title.localeCompare(b.title));
+            this.mediaModelArray =this.photographerPage.mediaModelArray.sort((a, b) => a.title.localeCompare(b.title));
         }
+        // test //
+        // console.log("consol filter",this.photographerPage.renderMedias())
+        // let sectionMedia = document.querySelector('section');
+        // sectionMedia.innerHTML = "";
+        this.photographerPage.renderMedias();
+        // test //
+        // this.photographerPage.renderMedias();
+
+
+
+
+
+        
         // console.log("ediaModelArray Popularité : ", this.mediaModelArray);
 
         // // Vérifier si le texte de current_filter est "Date"
@@ -95,10 +116,13 @@ export class Filter {
         const filterMenuButton = document.querySelector(".btn_drop");
         const filterButtons = document.querySelectorAll(".dropdown_content button");
 
-        // Aria-expanded sert a indiqué si un élément est déployé
-        const isExpanded = filterMenuButton.getAttribute("aria-expanded") === "true" || "false";
-        // On inverse la valeur de isExpanded
-        filterMenuButton.setAttribute("aria-expanded", !isExpanded);
+        // Aria-expanded sert a indiqué si un élément est déployéi
+        if (filterMenu.classList.contains("curtain_effect")) {
+            filterMenuButton.setAttribute("aria-expanded", "false");
+        } else {
+            filterMenuButton.setAttribute("aria-expanded", "true");
+        }
+
 
         // On ajoute ou supprime la class grâce a toggle
         filterMenu.classList.toggle("curtain_effect");

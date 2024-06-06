@@ -1,7 +1,7 @@
 export class LightboxTemplate {
 
     // On crée les éléments dans le DOM
-    render() {
+    render(HtmlParent) {
         const modalLigthbox = document.createElement('div');
         modalLigthbox.classList.add('lightbox');
         modalLigthbox.setAttribute("aria-modal","false");
@@ -10,6 +10,7 @@ export class LightboxTemplate {
 
         const contentLigthbox = document.createElement('div');
         contentLigthbox.classList.add('contentLigthbox');
+        contentLigthbox.setAttribute("aria-label", "media closeup view")
         modalLigthbox.appendChild(contentLigthbox);
 
         const closeLightbox = document.createElement('button')
@@ -18,6 +19,7 @@ export class LightboxTemplate {
         closeLightbox.setAttribute("aria-label","Close dialog");
         contentLigthbox.appendChild(closeLightbox);
         const icon = document.createElement('i')
+        icon.setAttribute("title","Close dialog")
         icon.classList.add('fa-solid', 'fa-xmark');
         closeLightbox.appendChild(icon);
 
@@ -28,6 +30,7 @@ export class LightboxTemplate {
         contentLigthbox.appendChild(previousBtn);
         const previousIcon = document.createElement('i');
         previousIcon.classList.add('fa-solid', 'fa-less-than');
+        previousIcon.setAttribute("title","Previous image")
         previousBtn.appendChild(previousIcon);
 
         const nextBtn = document.createElement('button')
@@ -37,6 +40,7 @@ export class LightboxTemplate {
         contentLigthbox.appendChild(nextBtn);
         const nextIcon = document.createElement('i');
         nextIcon.classList.add('fa-solid', 'fa-greater-than');
+        nextIcon.setAttribute("title","Next image")
         nextBtn.appendChild(nextIcon);
 
         const figure = document.createElement('figure')
@@ -52,6 +56,8 @@ export class LightboxTemplate {
         lightboxTitre.setAttribute("aria-label","intitulé du média");
         figcaption.appendChild(lightboxTitre)
 
-        return (modalLigthbox);
+        // return (modalLigthbox);
+
+        HtmlParent.appendChild(modalLigthbox);
     }
 }

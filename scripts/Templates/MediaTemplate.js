@@ -10,15 +10,15 @@ export class MediaTemplate {
 
         //Créer 1 card pour 1 photographe
         const article = document.createElement( 'article' );
-        article.classList.add('artcile-photographer');
+        article.classList.add('article-photographer');
         article.setAttribute("data-id", this.MediaModel.id);
 
         const figure = document.createElement( 'figure' );
+        figure.setAttribute("aria-label","lilac breasted roller, closeup view")
         article.appendChild(figure);
 
         const lien = document.createElement ('a');
         lien.setAttribute("tabindex","0")
-        lien.setAttribute("aria-label","lightbox, closeup view")
         figure.appendChild(lien)
 
         // On appelle getMedia pour afficher l'image ou la video dans figure
@@ -29,7 +29,7 @@ export class MediaTemplate {
         figure.appendChild(contenueMedia);
 
         const h2 = document.createElement( 'h2' );
-        h2.textContent = this.MediaModel.title;
+        h2.textContent = this.MediaModel.title + " " + this.MediaModel.date;
         contenueMedia.appendChild(h2);
 
         const contenuelike = document.createElement('div');
@@ -51,6 +51,7 @@ export class MediaTemplate {
 
         const icon = document.createElement('i')
         icon.classList.add('fa-solid', 'fa-heart');
+        icon.setAttribute("title","add or remove a like")
         heart.appendChild(icon)
 
 

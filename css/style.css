@@ -38,6 +38,7 @@ h1 {
     align-items: center;
     flex-direction: column;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .photographer_section article h2 {

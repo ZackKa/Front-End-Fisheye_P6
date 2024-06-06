@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
@@ -9,7 +9,7 @@
     <title>Fisheye - photographe </title>
   </head>
   <body>
-    <header>
+    <header role="banner">
       <a class="pageAccueil" href="index.html">
         <img src="assets/images/logo.png" class="logo" alt="Fisheye Home page"/>
       </a>
@@ -18,7 +18,7 @@
       <div class="photograph-header">
       </div>
       <div class="main_content_filter">
-        <h3>Trier par</h3>
+        <h2>Trier par</h2>
         <div class="filter_section" >
             <div class="dropdown">
                 <button class="btn_drop" id="order-by" type="button" role="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="filter-options" aria-label="Order by">
@@ -41,32 +41,36 @@
         </div>
     </div>
     </main>
-    <div id="contact_modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div id="contact_modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-titre">
 			<div class="modal" >
 				<header class="modal-header">
-          <h2 class="modal-header-h2">Contactez-moi <br></h2>
-          <button class="modal_close" type="button" aria-label="Close contact form">
-            <i class="fa-solid fa-xmark"></i>
+          <h2 class="modal-header-h2" id="modal-titre">Contactez-moi <br></h2>
+          <button class="modal_close" type="button" aria-label="Close Contact form">
+            <i class="fa-solid fa-xmark" title="Close dialog"></i>
           </button>
         </header>
 				<form>
           <div class="formData">
-            <label id="firstname-label" for="firstname">Prénom <span aria-hidden="true">*</span></label>
-            <input class="formField" aria-labelledby="firstname-label" type="text" id="firstname" name="firstname" minlength="2" required/>
+            <label id="firstname-label" for="firstname">Prénom</label>
+            <input class="formField" aria-labelledby="firstname-label" type="text" id="firstname" name="firstname" minlength="2" aria-required=true required/>
+            <span aria-hidden="true"></span>
         </div>
         <div class="formData">
-            <label id="lastname-label" for="lastname">Nom <span aria-hidden="true">*</span></label>
-            <input class="formField" aria-labelledby="lastname-label" type="text" id="lastname" name="lastname" minlength="2" required/>
+            <label id="lastname-label" for="lastname">Nom</label>
+            <input class="formField" aria-labelledby="lastname-label" type="text" id="lastname" name="lastname" minlength="2" aria-required=true required/>
+            <span aria-hidden="true"></span>
         </div>
         <div class="formData">
-            <label id="email-label" for="email">Email <span aria-hidden="true">*</span></label>
-            <input class="formField" aria-labelledby="email-label" type="email" id="email" name="email" required/>
+            <label id="email-label" for="email">Email</label>
+            <input class="formField" aria-labelledby="email-label" type="email" id="email" name="email" aria-required=true required/>
+            <span aria-hidden="true"></span>
         </div>
         <div class="formData">
-            <label id="message-label" for="message">Votre message <span aria-hidden="true">*</span></label>
-            <textarea class="formField" aria-labelledby="message-label" id="message" name="message" minlength="2" maxlength="300" required></textarea>
+            <label id="message-label" for="message">Votre message</label>
+            <textarea class="formField" aria-labelledby="message-label" id="message" name="message" minlength="2" maxlength="300" aria-required=true required></textarea>
+            <span aria-hidden="true"></span>
         </div>
-          <button class="contact_button" aria-label="Send form">Envoyer</button>
+          <button class="contact_button" aria-label="Send" type="submit">Envoyer</button>
 				</form>
 			</div>
 		</div>

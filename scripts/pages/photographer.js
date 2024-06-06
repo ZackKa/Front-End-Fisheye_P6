@@ -39,78 +39,118 @@ class App {
         return urlParams.get('id');
     }
 
-    render() {
+    renderPhotographe() {
         // On sélectionne l'élément "photograph-header"
         let html = document.querySelector(".photograph-header");
 
         // On crée une instance de PhotographerModel à partir des données du photographe (this.filteredData)
-        let photographerModel = new PhotographerModel(this.filteredData);
-        console.log("photographe", photographerModel)
+        this.photographerModel = new PhotographerModel(this.filteredData);
+        console.log("photographe", this.photographerModel)
         //Et utilise PhotographerTemplate pour générer le contenu grâce à photographerModel
-        let photographerTemplate = new PhotographerTemplate(photographerModel);
+        let photographerTemplate = new PhotographerTemplate(this.photographerModel);
         html.appendChild(photographerTemplate.render());
 
+        this.removeH2()
+    }
 
-        // On filtre les données des médias en fonction de l'ID du photographe
-        let main = document.querySelector("main");
-        const sectionMedia = document.createElement('section');
-        sectionMedia.classList.add("sectionPhotographer")
+    render() {
+        this.renderPhotographe();
 
-        let mediaModelArray=[];
-        // On fait une boucle des medias
-        this.filteredDatasMediaJson.forEach((data) => {
-            // console.log("Contenu de mediaModelArray pho.js : ", mediaModelArray);
-            
-            // on crée des instances pour chaque média avec les datas des medias et le photographerModel et on appel create qui verifie si le medias contient une image ou une video
-            let MediaModel = new MediaFactory(data, photographerModel).create();
-            mediaModelArray.push(MediaModel)
-            // console.log('Manu : MediaModel',mediaModelArray.length);
-            //On utilise MediaTemplate pour générer le contenu grâce à MediaModel
-            let mediaTemplate = new MediaTemplate(MediaModel);
-            // On appelle la méthode render de mediaTemplate et on la lie a sectionMedia
-            sectionMedia.appendChild(mediaTemplate.render());
+        this.main = document.querySelector("main");
 
-            // console.log("array avant", mediaModelArray)            
-            sectionMedia.innerHTML = ""; // Effacer le contenu actuel
-            
-            new Filter(mediaModelArray).optionsFilter();
-            mediaModelArray.forEach((mediaModel) => {
-                let mediaTemplate = new MediaTemplate(mediaModel);
-                sectionMedia.appendChild(mediaTemplate.render());
-                 
-            });
-        })
-        
-        console.log("array apres", mediaModelArray)
+        const lightboxTemplate = new LightboxTemplate();
+        lightboxTemplate.render(this.main)
 
-        main.appendChild(sectionMedia);
-        console.log("Data filtrer Id", this.filteredDatasMediaJson);
-        
-        // On crée une instance de AsideTemplate en passant les données du photographe et ses médias filtrés
-        let asideTemplate = new AsideTemplate(photographerModel );
-        main.appendChild(asideTemplate.render())
+        let asideTemplate = new AsideTemplate(this.photographerModel);
+        asideTemplate.render(this.main)
+
+        this.createMediaModelArray()
+        this.renderMedias();
 
         // Ouverture et fermeture du form
         const contactForm = new ContactForm(this.filteredData);
-        contactForm.displayModal();
-        contactForm.closeModal();
         contactForm.render();
 
-        const lightboxTemplate = new LightboxTemplate();
-        main.appendChild(lightboxTemplate.render())
+        let filter = new Filter(this);
+        filter.render();
 
-        const lightBox = new LightBox(mediaModelArray);
-        // main.appendChild(lightBox.render())
+    }
+
+    createMediaModelArray() {
+        this.mediaModelArray = [];
+        this.filteredDatasMediaJson.forEach((data) => {
+            // on crée des instances pour chaque média avec les datas des medias et le photographerModel et on appel create qui verifie si le medias contient une image ou une video
+            let MediaModel = new MediaFactory(data, this.photographerModel).create();
+            this.mediaModelArray.push(MediaModel)
+        })
+        console.log("create", this.mediaModelArray)
+    }
+
+    renderMedias() {
+        // On filtre les données des médias en fonction de l'ID du photographe
+
+        let sectionMedia = null;
+        console.log(document.getElementById('sectionMedia'))
+        if (document.getElementById('sectionMedia') != null) {
+            sectionMedia = document.getElementById('sectionMedia');
+        } else {
+            sectionMedia = document.createElement('section');
+            // sectionMedia.innerHTML = "";
+            sectionMedia.id = 'sectionMedia';
+            sectionMedia.classList.add("sectionPhotographer")
+        }
+                                        // test //
+        sectionMedia.innerHTML = ""; // Effacer le contenu actuel
+        this.mediaModelArray.forEach((mediaModel) => {
+            let mediaTemplate = new MediaTemplate(mediaModel);
+            sectionMedia.appendChild(mediaTemplate.render());
+
+        });
+
+        const lightBox = new LightBox(this.mediaModelArray);
         lightBox.render();
-        lightBox.closeLightboxBtn();
 
-        const like = new Likes (mediaModelArray);
+        const like = new Likes(this.mediaModelArray);
         like.render()
+                                        // test //
 
-        const filter = new Filter(mediaModelArray);
-        filter.openCloseFilterMenu();
-        filter.setupDropdown();
+        // On fait une boucle des medias
+        // this.mediaModelArray.forEach((data) => {
+        //     // console.log("Contenu de mediaModelArray pho.js : ", data);
+        //     //On utilise MediaTemplate pour générer le contenu
+        //     let mediaTemplate = new MediaTemplate(data);
+        //     // On appelle la méthode render de mediaTemplate et on la lie a sectionMedia
+        //     sectionMedia.appendChild(mediaTemplate.render());
 
+        //     const bt = document.getElementById("current_filter")
+        //     console.log("current bt", bt.textContent)
+
+        //     // sectionMedia.innerHTML = ""; // Effacer le contenu actuel
+
+
+        //     this.mediaModelArray.forEach((mediaModel) => {
+        //         let mediaTemplate = new MediaTemplate(mediaModel);
+        //         sectionMedia.appendChild(mediaTemplate.render());
+
+        //     });
+
+        // })
+        console.log("render", this.mediaModelArray)
+        this.main.appendChild(sectionMedia);
+        
+    }
+
+    removeH2() {
+        // Suppression de la balise h2 dans la page du photographe
+        if (window.location.href.includes("photographer.html")) {
+            // Sélection de la balise h2 du header
+            const h2Element = document.querySelector(".photograph-header h2");
+            if (h2Element) {
+                h2Element.remove();
+            }
+            const lien = document.querySelector(".photograph-header a")
+            lien.setAttribute("tabindex","-1")
+        }
     }
 
 }
