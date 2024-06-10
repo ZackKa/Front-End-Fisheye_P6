@@ -30,8 +30,6 @@ export class LightBox {
         // Navigation aux touches clavier
         document.addEventListener("keydown", (event) => {
             const lightbox = document.querySelector(".lightbox");
-            // const figure = document.getElementById("mediaLightbox");
-            // const mediaElement = figure.querySelector("img, video");
             if (lightbox.style.display === "flex") {
                 if (event.key === "ArrowRight") {
                     this.showNext()
@@ -40,21 +38,12 @@ export class LightBox {
                 }
             }
         });
+
         this.closeLightboxBtn()
         this.trapFocusIn()
         this.esc()
         
 
-    }
-
-    videoPlay() {
-        const figure = document.getElementById("mediaLightbox");
-        const mediaElement = figure.querySelector("video");
-        if (mediaElement.paused) {
-            mediaElement.play(); // Démarrer la lecture de la vidéo si elle est en pause
-        } else {
-            mediaElement.pause(); // Mettre en pause la vidéo si elle est en lecture
-        }
     }
 
     openLightbox() {
